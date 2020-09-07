@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  # workspace for using artisan commands in your local
+  workspace:
+    build: workspace
+    container_name: ToDoList_workspace
+    volumes:
+      - ../api:/var/www/html
+    command: bash
+    environment:
+      - STAGE=docker
+    depends_on:
+      - mysql
+      - cache
+
+  # php + webserver
+  apache:
+    build: apache
+    container_name: ToDoList_apache
+    volumes:
+      - ../api:/var/www/html
+    ports:
+      - 5000:80
+    environment:
+      - STAGE=docker
+
+  # DB in your local
+  mysql:
+    image: mysql:5.7
+    container_name: ToDoList_mysql
+    ports:
+      - '3308:3306'
+    environment:
+      - MYSQL_DATABASE=ToDoList
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ToDoList_mysql:/var/lib/mysql
+
+  # cache server
+  cache:
+    image: memcached
+    container_name: ToDoList_cache
+
+volumes:
+    ToDoList_mysql:
+        driver: "local"
