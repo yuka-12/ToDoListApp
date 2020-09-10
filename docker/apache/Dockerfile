@@ -13,4 +13,4 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-enabled/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-enabled/*.conf
 # COPY php.ini /usr/local/etc/php/
-# RUN echo "date.timezone = Europe/Brussels" >> /usr/local/etc/php/php.ini
+RUN echo "date.timezone = Europe/Brussels" >> /usr/local/etc/php/php.ini
