@@ -1,0 +1,25 @@
+{
+    "prettier.jsxBracketSameLine": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "prettier.useTabs": true,
+
+      // Set the default
+    "editor.formatOnSave": false,
+    // Enable per language
+    "[javascript]": {
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "[tsx]": {
+        "editor.formatOnSave": true
+    },
+    "[php]": {
+        "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+        "editor.formatOnSave": true
+    },
+}
