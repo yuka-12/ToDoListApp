@@ -31,8 +31,19 @@ class Database {
     $sqlForGet = 'SELECT * FROM ' .$this->table. ' WHERE user_id = ' . $userId;
     $stmtForGet = $this->executeStatement($sqlForGet);
     $result = $stmtForGet->fetchAll(\PDO::FETCH_ASSOC);
-    return json_encode($result);
+    $resultForFetch = [];
+    $resultForFetch['item'] = $result;
+    return json_encode($resultForFetch);
   }
+
+    /**
+     *
+     * Insert new Todo
+     *
+     * @param    array  $parameters ['user_id', 'value']
+     * 
+     *
+     */
 
   public function insertData($parameters) {
     $placeHolders = [];
@@ -42,16 +53,23 @@ class Database {
     }
     $strPlaceHolders = implode(',', $placeHolders);
     $sqlForInsert = 'INSERT INTO ' .$this->table. ' (' .implode(', ', $this->columns). ') VALUES (' .$strPlaceHolders. ')';
-    $paramArray = json_decode($parameters, TRUE);
     $paramForInsert = [];
-    foreach($paramArray as $key => $value) {
+    foreach($parameters as $key => $value) {
       $paramForInsert[] = $value;
     }
     $stmtForInsert = $this->executeStatement($sqlForInsert, $paramForInsert);
   }
-
+  
+  /**
+   *
+   * Update Todo data
+   *
+   * @param    array  $parameters ['value' => '', 'id' => ]
+   * @return      array
+   *
+   */
   public function updateData($parameters) {
-    $prmForUpdate = json_decode($parameters, TRUE);
+    $prmForUpdate = $parameters;
     $strPlaceHolders = '';
     $values = [];
     foreach($prmForUpdate as $key => $value) {
