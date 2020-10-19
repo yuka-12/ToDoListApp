@@ -3,4 +3,4 @@
 require_once('ToDoList.class.php');
 
 $data = new ToDoList();
-echo $data->getData(1);
+$data->deleteData($_GET['id']);
