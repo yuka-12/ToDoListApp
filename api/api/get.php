@@ -1,3 +1,6 @@
 <?php
 
-echo json_encode(["success"=>0,"msg"=>"Please fill all the required fields!"]);
+require_once('ToDoList.class.php');
+
+$data = new ToDoList();
+echo $data->getData(1);
