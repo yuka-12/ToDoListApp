@@ -36,6 +36,15 @@ class Database {
     return json_encode($resultForFetch);
   }
 
+  public function login($userName) {
+    $sqlForGet = 'SELECT * FROM ' .$this->table. ' WHERE user_name =?';
+    $values = [$userName];
+    $stmtForGet = $this->executeStatement($sqlForGet, $values);
+    $result = $stmtForGet->fetchAll(\PDO::FETCH_ASSOC);
+    return ($result);
+  }
+
+
     /**
      *
      * Insert new Todo
