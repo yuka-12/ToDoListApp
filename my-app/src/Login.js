@@ -46,7 +46,7 @@ class Login extends React.Component {
 				<div className='login-form'>
 					<h2 className='mt-4 mb-5'>Login</h2>
 					<Form onSubmit={this.handleSubmit}>
-						<Form.Group float='center' controlId='formBasicEmail'>
+						<Form.Group controlId='formBasicEmail'>
 							<Form.Label>Username</Form.Label>
 							<Form.Control
 								type='text'

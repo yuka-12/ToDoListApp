@@ -16,7 +16,6 @@ class HomePage extends React.Component {
 
 	render() {
 		const { user, users } = this.props;
-		console.log(users);
 		return (
 			<Row>
 				<Col md='3' lg='3'>
