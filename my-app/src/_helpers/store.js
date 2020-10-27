@@ -5,10 +5,11 @@ import rootReducer from '../_reducers';
 
 const loggerMiddleware = createLogger();
 
-export const store = createStore(
-    rootReducer,
-    applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware
-    )
-);
+let middleware = [];
+if (process.env.NODE_ENV === 'development') {
+	middleware = [...middleware, thunkMiddleware, loggerMiddleware];
+} else {
+	middleware = [...middleware, thunkMiddleware];
+}
+
+export const store = createStore(rootReducer, applyMiddleware(...middleware));
