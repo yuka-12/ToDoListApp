@@ -17,8 +17,13 @@ function login(username, password) {
 
 		userService.login(username, password).then(
 			(user) => {
-				dispatch(success(user));
-				history.push('/');
+				if (user.message) {
+					dispatch(failure(user.message));
+					dispatch(alertActions.error(user.message));
+				} else {
+					dispatch(success(user));
+					history.push('/');
+				}
 			},
 			(error) => {
 				dispatch(failure(error.toString()));
