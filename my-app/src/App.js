@@ -32,40 +32,44 @@ class App extends React.Component {
 		const { alert } = this.props;
 
 		return (
-			<Router>
-				<div className='App'>
-					<div>
-						{alert.message && (
-							<div className={`alert ${alert.type}`}>{alert.message}</div>
-						)}
-					</div>
-					<Navbar bg='light' sticky='top' className='justify-content-between'>
-						<NavLink className='navbar-brand' to='/'>
-							<h1> ToDoListApp </h1>
-						</NavLink>
-						<Nav>
+			<div className='App'>
+				<div>
+					{alert.message && (
+						<div className={`alert ${alert.type}`}>{alert.message}</div>
+					)}
+				</div>
+				<Navbar bg='light' sticky='top' className='justify-content-between'>
+					<NavLink className='navbar-brand' to='/'>
+						<h1> ToDoListApp </h1>
+					</NavLink>
+					<Nav>
+						{this.props.authentication.loggedIn ? (
+							<NavLink to='/login' className='ml-10'>
+								<Button variant='outline-secondary'> Logout </Button>
+							</NavLink>
+						) : (
 							<NavLink to='/login' className='ml-10'>
 								<Button variant='secondary'> Login </Button>
 							</NavLink>
-						</Nav>
-					</Navbar>
-					<Container fluid>
-						<Switch>
-							<PrivateRoute exact path='/' component={HomePage} />
-							<Route path='/login' component={Login} />
-							<Route path='/createAccount' component={RegisterPage} />
-							<Redirect from='*' to='/' />
-						</Switch>
-					</Container>
-				</div>
-			</Router>
+						)}
+					</Nav>
+				</Navbar>
+				<Container fluid>
+					<Switch>
+						<PrivateRoute exact path='/' component={HomePage} />
+						<Route path='/login' component={Login} />
+						<Route path='/register' component={RegisterPage} />
+						<Redirect from='*' to='/' />
+					</Switch>
+				</Container>
+			</div>
 		);
 	}
 }
 
 function mapState(state) {
-	const { alert } = state;
-	return { alert };
+	const { alert, authentication } = state;
+	return { alert, authentication };
 }
 
 const actionCreators = {
