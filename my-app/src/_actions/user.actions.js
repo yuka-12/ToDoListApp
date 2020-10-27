@@ -7,7 +7,7 @@ export const userActions = {
 	login,
 	logout,
 	register,
-	getAll,
+	getById,
 	delete: _delete,
 };
 
@@ -81,11 +81,11 @@ function register(user) {
 	}
 }
 
-function getAll() {
+function getById(id) {
 	return (dispatch) => {
 		dispatch(request());
 
-		userService.getAll().then(
+		userService.getById(id).then(
 			(items) => dispatch(success(items)),
 			(error) => dispatch(failure(error.toString()))
 		);

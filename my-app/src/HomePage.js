@@ -11,7 +11,7 @@ import { userActions } from './_actions';
 
 class HomePage extends React.Component {
 	componentDidMount() {
-		this.props.getUsers();
+		this.props.getUsers(this.props.user.user_id);
 	}
 
 	render() {
@@ -46,7 +46,7 @@ function mapState(state) {
 }
 
 const actionCreators = {
-	getUsers: userActions.getAll,
+	getUsers: userActions.getById,
 };
 
 const connectedHomePage = connect(mapState, actionCreators)(HomePage);

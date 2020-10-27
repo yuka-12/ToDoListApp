@@ -5,7 +5,6 @@ export const userService = {
 	login,
 	logout,
 	register,
-	getAll,
 	getById,
 	update,
 	delete: _delete,
@@ -33,22 +32,15 @@ function logout() {
 	localStorage.removeItem('user');
 }
 
-function getAll() {
-	const requestOptions = {
-		method: 'GET',
-		headers: authHeader(),
-	};
-
-	return fetch(`/api/get.php`, requestOptions).then(handleResponse);
-}
-
 function getById(id) {
 	const requestOptions = {
 		method: 'GET',
 		headers: authHeader(),
 	};
 
-	return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+	return fetch(`/api/get.php?user_id=${id}`, requestOptions).then(
+		handleResponse
+	);
 }
 
 function register(user) {
