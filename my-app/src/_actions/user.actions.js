@@ -149,7 +149,6 @@ function update(id, value) {
 				} else {
 					dispatch(success(value));
 					dispatch(alertActions.success());
-					// history.go(0);
 				}
 			},
 			(error) => {
@@ -176,8 +175,14 @@ function _delete(id) {
 		dispatch(request(id));
 
 		userService.delete(id).then(
-			(user) => dispatch(success(id)),
-			(error) => dispatch(failure(id, error.toString()))
+			(user) => {
+				dispatch(success(id));
+				history.go(0);
+			},
+			(error) => {
+				dispatch(failure(id, error.toString()));
+				dispatch(alertActions.error(error.toString()));
+			}
 		);
 	};
 

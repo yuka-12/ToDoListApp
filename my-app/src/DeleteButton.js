@@ -1,25 +1,40 @@
-import React from "react";
-import "./App.css";
-import Button from "react-bootstrap/Button";
+import React from 'react';
+import './App.css';
+import Button from 'react-bootstrap/Button';
+import { userActions } from './_actions';
+import { connect } from 'react-redux';
 
-const DeleteButton = ({ id }) => {
-  const confirmDelete = (id) => {
-    const confirm = window.confirm("Are you sure you want to delete?");
-    if (confirm) {
-      fetch("api/delete.php?id=" + id, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    }
-  };
+class DeleteButton extends React.Component {
+	constructor(props) {
+		super(props);
 
-  return (
-    <Button variant="outline-danger" href="/" onClick={() => confirmDelete(id)}>
-      Delete
-    </Button>
-  );
+		this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick() {
+		const confirm = window.confirm('Are you sure you want to delete?');
+		if (confirm) {
+			this.props.delete(this.props.id);
+		}
+	}
+	render() {
+		return (
+			<Button variant='outline-danger' onClick={this.handleClick}>
+				Delete
+			</Button>
+		);
+	}
+}
+
+function mapState(state) {
+	const { authentication } = state;
+	const { user } = authentication;
+	return { user };
+}
+
+const actionCreators = {
+	delete: userActions.delete,
 };
 
-export default DeleteButton;
+const connectedDeleteButton = connect(mapState, actionCreators)(DeleteButton);
+export { connectedDeleteButton as DeleteButton };

@@ -81,7 +81,7 @@ function _delete(id) {
 		headers: authHeader(),
 	};
 
-	return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+	return fetch(`/api/delete.php?id=${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

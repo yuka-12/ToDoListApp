@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-import DeleteButton from './DeleteButton';
+import { DeleteButton } from './DeleteButton';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/Col';
