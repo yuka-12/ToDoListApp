@@ -45,7 +45,7 @@ class ToDoList extends React.Component {
 	render() {
 		const { id, isEditing, value } = this.state;
 		return (
-			<li id={id}>
+			<li>
 				<div className='p-2'>
 					<Form>
 						<Row>

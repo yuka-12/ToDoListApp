@@ -29,7 +29,9 @@ class HomePage extends React.Component {
 						<div className='mt-3 d-flex flex-column'>
 							<ul>
 								{users.items &&
-									users.items.item.map((item) => <ToDoList item={item} />)}
+									users.items.item.map((item) => (
+										<ToDoList key={item.id} item={item} />
+									))}
 							</ul>
 						</div>
 					</div>
