@@ -7,6 +7,7 @@ export const userActions = {
 	login,
 	logout,
 	register,
+	create,
 	getById,
 	delete: _delete,
 };
@@ -78,6 +79,39 @@ function register(user) {
 	}
 	function failure(error) {
 		return { type: userConstants.REGISTER_FAILURE, error };
+	}
+}
+
+function create(userId, value) {
+	return (dispatch) => {
+		dispatch(request(value));
+
+		userService.create(userId, value).then(
+			(value) => {
+				if (value.message) {
+					dispatch(failure(value.message));
+					dispatch(alertActions.error(value.message));
+				} else {
+					dispatch(success(value));
+					dispatch(alertActions.success());
+					history.go(0);
+				}
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+				dispatch(alertActions.error(error.toString()));
+			}
+		);
+	};
+
+	function request(value) {
+		return { type: userConstants.CREATE_REQUEST, value };
+	}
+	function success(value) {
+		return { type: userConstants.CREATE_SUCCESS, value };
+	}
+	function failure(value) {
+		return { type: userConstants.CREATE_FAILURE, value };
 	}
 }
 

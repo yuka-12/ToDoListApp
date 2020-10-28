@@ -4,27 +4,45 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import { userActions } from './_actions';
+import { connect } from 'react-redux';
 
-const ToDoForm = () => {
-	const [user_id] = useState(1);
-	const [value, setValue] = useState('');
+class ToDoForm extends React.Component {
+	constructor(props) {
+		super(props);
 
-	const createNewTodo = () => {
-		fetch('api/create.php', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-				accept: 'application/json'
-			},
-			body: JSON.stringify({
-				user_id,
-				value
-			})
-		})
-			.catch(err => console.log(err));
+		this.state = {
+			value: '',
+			submitted: false,
+		};
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-	return (
-		<Form className='ml-2 mt-5' onSubmit={() => createNewTodo()}>
+
+	handleChange(event) {
+		const { name, value } = event.target;
+		this.setState({ [name]: value });
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+		this.setState({ submitted: true });
+		const { value } = this.state;
+
+		const userId = this.props.user.user_id;
+		console.log(this.state);
+		console.log(value);
+
+		if (value) {
+			this.props.create(userId, value);
+		}
+	}
+
+	render() {
+		return (
+			<Form className='ml-2 mt-5' onSubmit={this.handleSubmit}>
 				<Form.Group controlId='formAddNewTodo'>
 					<InputGroup className='mb-3'>
 						<FormControl
@@ -32,22 +50,29 @@ const ToDoForm = () => {
 							placeholder='new ToDo'
 							aria-label='new ToDo'
 							aria-describedby='basic-addon2'
-							onChange={e => setValue(e.target.value)}
-							/>
+							onChange={this.handleChange}
+						/>
 						<InputGroup.Append>
-							<Button
-								type='submit'
-								variant='outline-secondary'
-								>
+							<Button type='submit' variant='outline-secondary'>
 								Add
 							</Button>
 						</InputGroup.Append>
 					</InputGroup>
 				</Form.Group>
-			 </Form>
-	)
+			</Form>
+		);
+	}
 }
 
+function mapState(state) {
+	const { authentication } = state;
+	const { user } = authentication;
+	return { user };
+}
 
+const actionCreators = {
+	create: userActions.create,
+};
 
-export default ToDoForm;
+const connectedToDoFormPage = connect(mapState, actionCreators)(ToDoForm);
+export { connectedToDoFormPage as ToDoForm };

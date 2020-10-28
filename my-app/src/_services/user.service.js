@@ -5,6 +5,7 @@ export const userService = {
 	login,
 	logout,
 	register,
+	create,
 	getById,
 	update,
 	delete: _delete,
@@ -51,6 +52,16 @@ function register(user) {
 	};
 
 	return fetch(`/api/register.php`, requestOptions).then(handleResponse);
+}
+
+function create(userId, value) {
+	const requestOptions = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ userId, value }),
+	};
+
+	return fetch(`/api/create.php`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
