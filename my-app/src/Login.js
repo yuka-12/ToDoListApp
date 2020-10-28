@@ -53,6 +53,11 @@ class Login extends React.Component {
 								value={username}
 								onChange={this.handleChange}
 							/>
+							{submitted && !username && (
+								<div className='help-block text-danger mb-3'>
+									Username is required
+								</div>
+							)}
 						</Form.Group>
 
 						<Form.Group className='mb-5' controlId='formBasicPassword'>
@@ -64,6 +69,11 @@ class Login extends React.Component {
 								value={password}
 								onChange={this.handleChange}
 							/>
+							{submitted && !password && (
+								<div className='help-block text-danger mb-3'>
+									Password is required
+								</div>
+							)}
 						</Form.Group>
 
 						<Form.Group controlId='formBasicSubmit'>
