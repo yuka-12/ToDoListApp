@@ -27,11 +27,6 @@ class App extends React.Component {
 
 		return (
 			<div className='App'>
-				<div>
-					{alert.message && (
-						<div className={`alert ${alert.type}`}>{alert.message}</div>
-					)}
-				</div>
 				<Navbar bg='light' sticky='top' className='justify-content-between'>
 					<NavLink className='navbar-brand' to='/'>
 						<h1> ToDoListApp </h1>
@@ -48,6 +43,11 @@ class App extends React.Component {
 						)}
 					</Nav>
 				</Navbar>
+				<div>
+					{alert.message && (
+						<div className={`alert ${alert.type}`}>{alert.message}</div>
+					)}
+				</div>
 				<Container fluid>
 					<Switch>
 						<PrivateRoute exact path='/' component={HomePage} />
