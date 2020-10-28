@@ -9,6 +9,7 @@ export const userActions = {
 	register,
 	create,
 	getById,
+	update,
 	delete: _delete,
 };
 
@@ -133,6 +134,39 @@ function getById(id) {
 	}
 	function failure(error) {
 		return { type: userConstants.GETALL_FAILURE, error };
+	}
+}
+
+function update(id, value) {
+	return (dispatch) => {
+		dispatch(request(value));
+
+		userService.update(id, value).then(
+			(value) => {
+				if (value.message) {
+					dispatch(failure(value.message));
+					dispatch(alertActions.error(value.message));
+				} else {
+					dispatch(success(value));
+					dispatch(alertActions.success());
+					// history.go(0);
+				}
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+				dispatch(alertActions.error(error.toString()));
+			}
+		);
+	};
+
+	function request(value) {
+		return { type: userConstants.UPDATE_REQUEST, value };
+	}
+	function success(value) {
+		return { type: userConstants.UPDATE_SUCCESS, value };
+	}
+	function failure(value) {
+		return { type: userConstants.UPDATE_FAILURE, value };
 	}
 }
 

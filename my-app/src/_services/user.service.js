@@ -64,14 +64,14 @@ function create(userId, value) {
 	return fetch(`/api/create.php`, requestOptions).then(handleResponse);
 }
 
-function update(user) {
+function update(id, value) {
 	const requestOptions = {
 		method: 'PUT',
 		headers: { ...authHeader(), 'Content-Type': 'application/json' },
-		body: JSON.stringify(user),
+		body: JSON.stringify({ id, value }),
 	};
 
-	return fetch(`/users/${user.id}`, requestOptions).then(handleResponse);
+	return fetch(`/api/update.php`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

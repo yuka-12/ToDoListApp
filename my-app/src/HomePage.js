@@ -3,7 +3,7 @@ import './App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ToDoForm } from './ToDoForm.js';
-import ToDoList from './ToDoList.js';
+import { ToDoList } from './ToDoList.js';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/Col';
 
