@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PrivateRoute } from './_components';
 import { Login } from './Login.js';
 import { RegisterPage } from './RegisterPage/registerPage';
@@ -8,13 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	NavLink,
-	Redirect,
-} from 'react-router-dom';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import { history } from './_helpers';
 import { alertActions } from './_actions';
 import { connect } from 'react-redux';

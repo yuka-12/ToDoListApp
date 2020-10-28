@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-import DeleteButton from './DeleteButton';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { userActions } from './_actions/user.actions';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -39,7 +38,6 @@ class Login extends React.Component {
 	}
 
 	render() {
-		const { loggingIn } = this.props;
 		const { username, password, submitted } = this.state;
 		return (
 			<center>

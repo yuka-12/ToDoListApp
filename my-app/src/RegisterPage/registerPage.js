@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../App.css';
 import Button from 'react-bootstrap/Button';
-import DeleteButton from '../DeleteButton';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom';
 import { userActions } from '../_actions/user.actions';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 class RegisterPage extends React.Component {
 	constructor(props) {
@@ -47,7 +43,6 @@ class RegisterPage extends React.Component {
 	}
 
 	render() {
-		const { registering } = this.props;
 		const { user, submitted } = this.state;
 		return (
 			<center>

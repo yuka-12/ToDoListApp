@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ToDoForm } from './ToDoForm.js';
 import { ToDoList } from './ToDoList.js';
