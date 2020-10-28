@@ -14,11 +14,11 @@ class HomePage extends React.Component {
 	}
 
 	render() {
-		const { user, users } = this.props;
+		const { users } = this.props;
 		return (
 			<Row>
 				<Col md='3' lg='3'>
-					<p className='ml-2 mt-4'> Friends list </p>
+					<p className='ml-2 mt-4'>Welcome, {this.props.user.userName} !</p>
 				</Col>
 				<Col md='9' lg='9'>
 					<div className='ml-2 mt-4'>
