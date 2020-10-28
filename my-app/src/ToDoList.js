@@ -1,81 +1,107 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
-import DeleteButton from './DeleteButton';
+import { DeleteButton } from './DeleteButton';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/Col';
+import { userActions } from './_actions';
+import { connect } from 'react-redux';
 
-const ToDoList = ({ item }) => {
-	const [id] = useState(item.id);
-	const [value, setValue] = useState(item.value);
-	const [isEditing, setIsEditing] = useState(false);
+class ToDoList extends React.Component {
+	constructor(props) {
+		super(props);
 
-	const updateTodo = () => {
-		fetch('api/update.php', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-				accept: 'application/json',
-			},
-			body: JSON.stringify({
-				value,
-				id,
-			}),
-		})
-			.catch((err) => console.log(err));
-	};
+		this.state = {
+			id: this.props.item.id,
+			value: this.props.item.value,
+			isEditing: false,
+		};
 
+		this.handleChange = this.handleChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
-	return (
-		<li id={id}>
-			<div className='p-2'>
-				<Form>
-					<Row>
-						<Col>
-							<span>
-								{isEditing ? (
-									<Form.Control
-										type='text'
-										value={value}
-										onChange={(e) => setValue(e.target.value)}
-									/>
-								) : (
-									value
-								)}
-							</span>
-						</Col>
-						<Col>
-							<div className='float-right mr-5'>
-								<span className='mr-3'>
+	handleChange(event) {
+		const { name, value } = event.target;
+		this.setState({ [name]: value });
+	}
+
+	handleClick() {
+		this.setState({ isEditing: true });
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+		const { id, value } = this.state;
+		if (value) {
+			this.props.update(id, value);
+		}
+		this.setState({ isEditing: false });
+	}
+
+	render() {
+		const { id, isEditing, value } = this.state;
+		return (
+			<li>
+				<div className='p-2'>
+					<Form>
+						<Row>
+							<Col>
+								<span>
 									{isEditing ? (
-										<Button
-											variant='outline-secondary'
-											onClick={() => {
-												updateTodo();
-												setIsEditing(!isEditing);
-												}}>
-											Submit
-										</Button>
+										<Form.Control
+											type='text'
+											name='value'
+											value={value}
+											onChange={this.handleChange}
+										/>
 									) : (
-										<Button
-											variant='outline-secondary'
-											onClick={() => setIsEditing(!isEditing)}>
-											Edit
-										</Button>
+										value
 									)}
 								</span>
-								<span>
-									<DeleteButton id={id} />
-								</span>
-							</div>
-						</Col>
-					</Row>
-				</Form>
-			</div>
-		</li>
-	);
+							</Col>
+							<Col>
+								<div className='float-right mr-5'>
+									<span className='mr-3'>
+										{isEditing ? (
+											<Button
+												variant='outline-secondary'
+												onClick={this.handleSubmit}>
+												Submit
+											</Button>
+										) : (
+											<Button
+												variant='outline-secondary'
+												onClick={this.handleClick}>
+												Edit
+											</Button>
+										)}
+									</span>
+									<span>
+										<DeleteButton id={id} />
+									</span>
+								</div>
+							</Col>
+						</Row>
+					</Form>
+				</div>
+			</li>
+		);
+	}
+}
+
+function mapState(state) {
+	const { authentication } = state;
+	const { user } = authentication;
+	return { user };
+}
+
+const actionCreators = {
+	update: userActions.update,
 };
 
-
-export default ToDoList;
+const connectedToDoListPage = connect(mapState, actionCreators)(ToDoList);
+export { connectedToDoListPage as ToDoList };

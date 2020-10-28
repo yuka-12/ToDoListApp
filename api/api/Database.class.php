@@ -36,6 +36,15 @@ class Database {
     return json_encode($resultForFetch);
   }
 
+  public function login($userName) {
+    $sqlForGet = 'SELECT * FROM ' .$this->table. ' WHERE user_name =?';
+    $values = [$userName];
+    $stmtForGet = $this->executeStatement($sqlForGet, $values);
+    $result = $stmtForGet->fetchAll(\PDO::FETCH_ASSOC);
+    return ($result);
+  }
+
+
     /**
      *
      * Insert new Todo
@@ -64,7 +73,7 @@ class Database {
    *
    * Update Todo data
    *
-   * @param    array  $parameters ['value' => '', 'id' => ]
+   * @param    array  $parameters ['id' => , 'value' => ]
    * @return      array
    *
    */
@@ -75,9 +84,10 @@ class Database {
     foreach($prmForUpdate as $key => $value) {
       if ($key !== 'id') {
         $strPlaceHolders .= $key. '=?, ';
+        $values[] = $value;
       }
-      $values[] = $value;
     }
+    $values[] = $prmForUpdate['id'];
     $sqlForUpdate = 'UPDATE ' .$this->table. ' SET ' .$strPlaceHolders. 'updated_at = NOW() WHERE id=?';
     $stmtForInsert = $this->executeStatement($sqlForUpdate, $values);
 
