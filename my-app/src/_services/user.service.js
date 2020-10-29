@@ -18,10 +18,10 @@ function login(username, password) {
 		body: JSON.stringify({ username, password }),
 	};
 
-	const url =
-		process.env.NODE_ENV && process.env.NODE_ENV === 'production'
-			? 'https://todolist-php-api.herokuapp.com/login.php'
-			: '/api/login.php';
+	const url = '/api/login.php';
+	// process.env.NODE_ENV && process.env.NODE_ENV === 'production'
+	// ? 'https://todolist-php-api.herokuapp.com/login.php'
+	// : '/api/login.php';
 
 	return fetch(url, requestOptions)
 		.then(handleResponse)
