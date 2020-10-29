@@ -18,7 +18,12 @@ function login(username, password) {
 		body: JSON.stringify({ username, password }),
 	};
 
-	return fetch(`/api/login.php`, requestOptions)
+	const url =
+		process.env.NODE_ENV && process.env.NODE_ENV === 'production'
+			? 'https://todolist-php-api.herokuapp.com/login.php'
+			: '/api/login.php';
+
+	return fetch(url, requestOptions)
 		.then(handleResponse)
 		.then((user) => {
 			// store user details and jwt token in local storage to keep user logged in between page refreshes
