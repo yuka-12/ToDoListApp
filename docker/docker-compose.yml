@@ -25,6 +25,11 @@ services:
       - 5000:80
     environment:
       - STAGE=docker
+      - DB_SERVER_NAME=ToDoList_mysql
+      - DB_NAME=ToDoList
+      - DB_USER_NAME=dbuser
+      - DB_PASSWORD=password
+
 
   # DB in your local
   mysql:
