@@ -1,6 +1,7 @@
 <?php
 
 require_once('ToDoList.class.php');
+require_once('DatabaseConnect.class.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -12,7 +13,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
     if ($_POST['userId']) {
         $param = [$_POST['userId'], $_POST['value']];
-        $data = new ToDoList();
+        $databaseConnect = new DatabaseConnect();
+        $data = new ToDoList($databaseConnect);
         $data->insertData($param);
         } else {
             echo json_encode(['message' => 'No userId found.']);

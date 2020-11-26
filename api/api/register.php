@@ -1,6 +1,7 @@
 <?php
 
 require_once('Users.class.php');
+require_once('DatabaseConnect.class.php');
 
 
 // Define variables and initialize with empty values
@@ -31,7 +32,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate credentials
     if(empty($usernameErr) && empty($passwordErr)){
-        $data = new Users();
+        $databaseConnect = new DatabaseConnect();
+        $data = new Users($databaseConnect);
         if ($data->login($username)) {
             echo json_encode(['message' => 'This username is already used.']);
         } else {

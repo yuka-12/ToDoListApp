@@ -1,6 +1,8 @@
 <?php
 
 require_once('ToDoList.class.php');
+require_once('DatabaseConnect.class.php');
 
-$data = new ToDoList();
+$databaseConnect = new DatabaseConnect();
+$data = new ToDoList($databaseConnect);
 echo $data->getData($_GET['user_id']);
