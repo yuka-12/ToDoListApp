@@ -3,6 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 
 require_once('Users.class.php');
+require_once('DatabaseConnect.class.php');
 
 
 // Define variables and initialize with empty values
@@ -34,7 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
 
-        $data = new Users();
+        $databaseConnect = new DatabaseConnect();
+        $data = new Users($databaseConnect);
         if ($data->login($username)) {
             $userData = $data->login($username);
             if (password_verify($password, $userData[0]['password'])) {

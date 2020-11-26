@@ -1,6 +1,7 @@
 <?php
 
 require_once('ToDoList.class.php');
+require_once('DatabaseConnect.class.php');
 
 if (empty(file_get_contents("php://input"))) die();
 
@@ -9,7 +10,8 @@ $_POST = $postedValue;
 
 if ($_POST['id'] && $_POST['value']) {
     $param = $_POST;
-    $data = new ToDoList();
+    $databaseConnect = new DatabaseConnect();
+    $data = new ToDoList($databaseConnect);
     $data->updateData($param);
     }
 
